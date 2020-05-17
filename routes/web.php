@@ -23,7 +23,10 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware(rolecheck:
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 Route::middleware('AdministratorCheck')->group(function(){
-   Route::get('/administrator/dashboard', 'Controllers\AdministratorController@dashboard');
+   Route::get('/administrator/dashboard', 'Controllers\AdministratorController@dashboard')->name('admin.dashboard');
    Route::get('/administrator/user', 'Controllers\MemberController@member_list')->name('user');
+   Route::resource('/administrator/articles', 'ArticlesController');
+   Route::resource('/administrator/articles/tags', 'TagsController');
+
 
 });

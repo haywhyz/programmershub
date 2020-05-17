@@ -3,13 +3,23 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
+        <div class="col-md-4">
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <a href="{{ route('user')}}" class="href">Users</a>
+                </li>
+                <li class="list-group-item">
+                 <a href="{{route('articles.index')}}" class="href">Articles</a>
+             </li>
+            </ul>
+         </div>
         <div class="col-md-8">
-            <div class="main">
+            {{-- <div class="main">
                 <ul class="menu">
                     <li><a href="{{ route('user')}}">User</a></li>
                     <li>User</li>
                 </ul>
-            </div>
+            </div> --}}
             <div class="card">
                 <div class="card-header">Members</div>
 

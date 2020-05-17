@@ -14,14 +14,20 @@
            </ul>
         </div>
         <div class="col-md-8">
-            
+            <div>
+                <a href="{{route('articles.create')}}" class="btn btn-primary">Create articles</a>
+                <a href="{{route('tags.index')}}" class="btn btn-primary">Tags</a>
+            </div>
             {{-- <div class="main">
                 <ul class="menu">
                     <li><a href="{{ route('user')}}">User</a></li>
                     <li>User</li>
                 </ul>
             </div> --}}
+           
             <div class="card">
+               
+                
                 <div class="card-header">Dashboard</div>
 
                 <div class="card-body">
@@ -30,16 +36,32 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    You are logged in!  bbbbb
+
+                    <table class="table table-stripped">
+                     
+                        <th>Image </th>
+                        <th>title</th>
+                        <th>Posted by <th>
+                        <th>Operations</th>
+                   
+                    {{-- @foreach ($tags as $tag ) --}}
+
+                    <tr>
+                     {{-- <td>{{ $tag->name}} </td> --}}
+                     <td> image </td>
+                     <td> commonwealth </td>
+                     <td> Olayinka</td>
+                     <td> <a href="" class="btn btn-info">Edit</a> 
+                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >Delete</a>
+                     </td>
+                 </tr>
+                    {{-- @endforeach --}}
+                </table>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
 @endsection
-<style>
-     ul li{
-        display: inline;
-        padding: 10px;
-    }
-</style>
+
