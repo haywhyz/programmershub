@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\createArticleRequest;
 use App\Tag;
+use App\Article;
+use App\Article_Tag;
 
 class ArticlesController extends Controller
 {
@@ -15,7 +17,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        return view('administrator.articles.index');
+        return view('administrator.articles.index')->with('articles', Article::all());
     }
 
     /**
@@ -34,19 +36,26 @@ class ArticlesController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(createArticleRequest $request)
-    {
-             create::([
+    public function store(createArticleRequest $request, Article_Tag $article_tag)
+    {       
+        // dd(auth()->user()->id);
+        $image = $request->image->store('article');
+          $articles= Article::create([
             'title' => $request->title,
             'content' => $request->content,
             'slug'=>$request->title,
             'tag'=> $request->tag,
             'published_at'=>$request->published_at,
-            'user_id'=>auth()->user()->id
-
-
+            'user_id'=>auth()->user()->id,
+            'image'=>$image
 
         ]);
+        $tags = $request['tag'];
+        foreach($tags as $tag){
+            $article_tag::create(['article_id'=>$articles->id, 'tag_id'=>$tag]);
+        }
+        session()->flash('success','data inserted successully');
+        return redirect('administrator/articles/');
     }
 
     /**
@@ -66,9 +75,12 @@ class ArticlesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Article $article)
     {
-        //
+        return view('administrator.articles.create')->with('tags',Tag::all()
+        
+    
+    );
     }
 
     /**

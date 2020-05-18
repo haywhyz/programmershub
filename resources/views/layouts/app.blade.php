@@ -81,7 +81,18 @@
                 </div>
             </div>
         </nav>
-
+        <div class="container-fluid">
+            @if(session()->has('success'))
+            <div class="alert alert-success">
+                {{ Session()->get('success') }}
+            </div>
+            @endif
+            @if(session()->has('error'))
+            <div class="alert alert-danger">
+                {{ Session()->get('error') }}
+            </div>
+            @endif
+        
         <main class="py-4">
             @yield('content')
         </main>

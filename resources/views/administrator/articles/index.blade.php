@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+
     <div class="row justify-content-center">
         <div class="col-md-4">
            <ul class="list-group">
@@ -42,20 +42,21 @@
                         <th>Image </th>
                         <th>title</th>
                         <th>Posted by <th>
+                        <th>posted date </th>
                         <th>Operations</th>
                    
-                    {{-- @foreach ($tags as $tag ) --}}
+                    @foreach ($articles as $articles )
 
                     <tr>
-                     {{-- <td>{{ $tag->name}} </td> --}}
-                     <td> image </td>
-                     <td> commonwealth </td>
-                     <td> Olayinka</td>
-                     <td> <a href="" class="btn btn-info">Edit</a> 
+                    <td> <img src="{{ asset('/storage/'.$articles->image)}} " alt="" width="100px" height="100px"> </td>
+                     <td>{{ $articles->title}} </td>
+                     <td>{{ $articles->published_at}} </td>
+                     <td>{{ $articles->user->username}} </td>
+                     <td> <a href="{{route('articles.edit', $articles->id)}}" class="btn btn-info">Edit</a> 
                          <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >Delete</a>
                      </td>
                  </tr>
-                    {{-- @endforeach --}}
+                    @endforeach
                 </table>
                    
                 </div>

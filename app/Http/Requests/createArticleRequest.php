@@ -24,11 +24,11 @@ class createArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title'=>'required|unique',
+            'title'=>'required|unique:articles',
             'content' => 'required',
             'tag'=>'required',
             'published_at'=>'required',
-            'image'=>'required'
+            'image'=>'required|image'
         ];
     }
 }
