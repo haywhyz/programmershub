@@ -38,22 +38,28 @@
                     @endif
 
                     <table class="table table-stripped">
-                     
+                     <tr>
                         <th>Image </th>
                         <th>title</th>
                         <th>Posted by <th>
                         <th>posted date </th>
                         <th>Operations</th>
+                        </tr>
                    
                     @foreach ($articles as $articles )
 
                     <tr>
                     <td> <img src="{{ asset('/storage/'.$articles->image)}} " alt="" width="100px" height="100px"> </td>
                      <td>{{ $articles->title}} </td>
-                     <td>{{ $articles->published_at}} </td>
                      <td>{{ $articles->user->username}} </td>
+                     <td>{{ $articles->published_at}} </td>
+                   
                      <td> <a href="{{route('articles.edit', $articles->id)}}" class="btn btn-info">Edit</a> 
-                         <a href="" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" >Delete</a>
+                        <form action="{{route('articles.destroy', $articles->id)}}"  method="POST">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger" type="submit">delete</button>
+                        </form>
                      </td>
                  </tr>
                     @endforeach

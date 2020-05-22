@@ -9,7 +9,7 @@ class TagsController extends Controller
 {
     public function index()
     {
-        return view('administrator.articles.tags.index')->with('tags', Tag::all());
+        return view('tags.index')->with('tag', $tag);
     }
 
     public function create()

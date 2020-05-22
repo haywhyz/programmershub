@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Tag;
 
 class Article extends Model
 {
@@ -14,5 +15,14 @@ class Article extends Model
     public function user()
     {
        return $this->belongsTo(User::class);
+    }
+    public function hasTag($tagid)
+    {
+      return in_array($tagid, $this->tags->pluck('id')->toArray());
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
     }
 }

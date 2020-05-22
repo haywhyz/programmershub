@@ -31,7 +31,8 @@
             @endif
             <div class="card">
                 <div class="card-header"> 
-                    {{isset($articles) ? 'Edit Post' : 'Create Post'}}
+                   {{isset($article) ? 'Edit Article': 'Create Articles' }}
+                 
                 </div>
                 
                 <div class="card-body">
@@ -40,17 +41,20 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <form action="{{route('articles.store')}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{isset($article) ? route('articles.update', $article->id) : route('articles.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
+                        @if(isset($article))
+                        @method('PUT')
+                        @endif
                         
                         <div class="form-group">
                             <label> Title</label>
-                            <input type="text" name="title" class="form-control" id="title">
+                            <input type="text" name="title" class="form-control" id="title" value="{{isset($article)? $article->title : ''}}">
                         </div>
                         <div class="form-group">
                             <label for="content">content</label>
                             
-                            <input id="content" type="hidden" name="content" id="content" >
+                            <input id="content" type="hidden" name="content" id="content" value="{{isset($article)? $article->content : ''}}" >
                             <trix-editor input="content"></trix-editor>
                             
                         </div>
@@ -60,7 +64,16 @@
                             <select name="tag[]" id="multiple" class="multiple form-control" multiple="multiple">
                                 @foreach ($tags as $tag)
                                 
-                                <option value="{{ $tag->id }}">
+                                <option value="{{ $tag->id }}"
+
+                                     @if(isset($article))
+                             
+                                     @if($article->hasTag($tag->id))
+                                         selected 
+                                     @endif
+
+                                     
+                                  @endif>
                                     
                                     {{ $tag->name }}
                                 </option>
@@ -70,16 +83,19 @@
                         </div>
                         <div class="form-group">
                             <label> Published_At</label>
-                            <input type="date" name="published_at" class="form-control">
+                            <input type="date" name="published_at" class="form-control"  value="{{isset($article)? $article->published_at : ''}}">
                         </div>
                         
                         <div class="form-group">
-                            <label> Image</label>
-                            <input type="file" name="image" class="form-control">
+                            @if (isset($article))
+                            <img src="{{asset('/storage/'.$article->image)}}" alt="image" width="200px" height="200px"> 
+                            @endif
+                            <input type="file" name="image" class="form-control" >
                         </div>
                         
                         <div class="form-group">
-                            <button class="btn btn-primary btn-block" type="submit" > {{isset($articles)? 'Create Articles': 'Update Articles' }}</button>
+                            
+                            <button class="btn btn-primary btn-block" type="submit" > {{isset($article)? 'Update Articles': 'Create Articles' }}</button>
                         </div>
                         
                         
